@@ -9,6 +9,8 @@ public class CommandsThread implements Runnable {
 
 	public CommandsThread(BufferedReader in) {
 		this.in = in;
+		Thread t = new Thread(this, "Command Reader");
+		t.start();
 	}
 
 	@Override
@@ -17,9 +19,12 @@ public class CommandsThread implements Runnable {
 			String commande = "";
 			while ((commande = in.readLine()) != null) {
 				for (Command command : Command.commands) {
-					if(command.test(commande))
+					if(command.test(commande)){
 						command.use();
+						continue;
+					}
 				}
+				System.out.println("Mauvaise commande");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

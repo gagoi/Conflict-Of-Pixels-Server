@@ -37,6 +37,7 @@ public class Command {
 
 	public Command(String name) {
 		this.name = name;
+		this.params = null;
 	}
 
 	public Command(String name, Param param) {
@@ -45,16 +46,22 @@ public class Command {
 	}
 
 	public boolean test(String input) {
+		
+		System.out.println(input);
+		System.out.println(name);
 		String[] values = input.split(" ");
+		
 		if (values[0] == name) {
+			System.out.println("Name : ok");
 			if (params == null) return true;
 			if (params.length == values.length - 1) {
 				for (int i = 1; i < values.length; i++) {
 					if (!params[i - 1].test(values[i])) return false;
 				}
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public void use() {
