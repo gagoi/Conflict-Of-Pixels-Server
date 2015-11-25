@@ -13,18 +13,23 @@ public class Command {
 		};
 	}, new Command("game:stop_timer") {
 		public void use() {
+			super.use();
 		};
 	}, new Command("game:reset_timer") {
 		public void use() {
+			super.use();
 		};
 	}, new Command("game:send_money") {
 		public void use() {
+			super.use();
 		};
 	}, new Command("game:send_mmr") {
 		public void use() {
+			super.use();
 		};
 	}, new Command("game:buy_item", Param.ITEM_ID) {
 		public void use() {
+			super.use();
 		};
 	}
 
