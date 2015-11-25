@@ -46,13 +46,9 @@ public class Command {
 	}
 
 	public boolean test(String input) {
-		
-		System.out.println(input);
-		System.out.println(name);
 		String[] values = input.split(" ");
 		
-		if (values[0] == name) {
-			System.out.println("Name : ok");
+		if (values[0].equals(name)) {
 			if (params == null) return true;
 			if (params.length == values.length - 1) {
 				for (int i = 1; i < values.length; i++) {
@@ -65,7 +61,7 @@ public class Command {
 	}
 
 	public void use() {
-		Server.logger.logTxt(name, "Command used.");
+		Server.serverGame.logger.logTxt(name, "Command used.");
 	}
 
 }

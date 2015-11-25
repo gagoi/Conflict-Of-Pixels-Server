@@ -18,13 +18,14 @@ public class CommandsThread implements Runnable {
 		try {
 			String commande = "";
 			while ((commande = in.readLine()) != null) {
+				boolean isGood = false;
 				for (Command command : Command.commands) {
-					if(command.test(commande)){
+					if (command.test(commande)) {
 						command.use();
-						continue;
+						isGood = true;
 					}
 				}
-				System.out.println("Mauvaise commande");
+				if (!isGood) System.out.println("Mauvaise commande");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

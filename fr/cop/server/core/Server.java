@@ -1,6 +1,7 @@
 package fr.cop.server.core;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -9,19 +10,21 @@ import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
+import fr.cop.common.Game;
 import fr.cop.common.logger.SimpleLog;
 import fr.cop.server.inputs.CommandsThread;
 
 public class Server {
 
-	public static SimpleLog logger = new SimpleLog();
 	private ServerSocket serverSocket;
 	private int port = 163;
-
+	public static Game serverGame;
+	
 	private static Vector<ClientThread> clients = new Vector<ClientThread>();
 
 	public Server() {
 		printServInfo();
+		serverGame = new Game("C:\\Conflict Of Pixels_Server\\", Game.TYPE_SERVER);
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {
