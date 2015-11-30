@@ -1,25 +1,22 @@
 package fr.cop.server.core;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
 import fr.cop.common.Game;
-import fr.cop.common.logger.SimpleLog;
-import fr.cop.server.inputs.CommandsThread;
+import fr.cop.common.commands.CommandsThread;
 
 public class Server {
 
 	private ServerSocket serverSocket;
 	private int port = 163;
 	public static Game serverGame;
-	
+
 	private static Vector<ClientThread> clients = new Vector<ClientThread>();
 
 	public Server() {
@@ -41,14 +38,9 @@ public class Server {
 	}
 
 	synchronized public void sendAll(String message, String sLast) {
-		PrintWriter out;
 		if (sLast.equals("")) sLast = "\n";
 		for (int i = 0; i < clients.size(); i++) {
-			out = (PrintWriter) clients.elementAt(i).getOut();
-			if (out != null) {
-				out.print(message + sLast);
-				out.flush();
-			}
+			clients.elementAt(i).getSender().send(message);
 		}
 		System.out.println("Envoye : " + message + sLast);
 	}

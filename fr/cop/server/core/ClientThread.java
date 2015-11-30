@@ -3,30 +3,32 @@ package fr.cop.server.core;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import fr.cop.server.inputs.Command;
+import fr.cop.common.Game;
+import fr.cop.common.commands.Command;
+import fr.cop.common.commands.Sender;
 
 public class ClientThread implements Runnable {
 	private Thread t;
 	@SuppressWarnings("unused")
 	private Socket s;
-	private PrintWriter out;
 	private BufferedReader in;
 	private int idClient;
 	private String ip;
 	private boolean op = false;
+	private Sender sender;
 
 	public ClientThread(Socket s) {
 		this.s = s;
 		setIp(s.getInetAddress().getHostAddress());
 		try {
-			out = new PrintWriter(s.getOutputStream());
+			sender = new Sender(new OutputStreamWriter(s.getOutputStream()));
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		} catch (IOException e) {
 		}
-		System.out.println("Client : " + idClient + " is connected with ip : " + getIp());
+		Game.logger.logTxt("<ClientThread:INFO>", "Client : " + idClient + " is connected with ip : " + getIp());
 
 		t = new Thread(this);
 		t.start();
@@ -38,8 +40,7 @@ public class ClientThread implements Runnable {
 			String commande = "";
 			while ((commande = in.readLine()) != null) {
 				for (Command command : Command.commands) {
-					if(command.test(commande))
-						command.use();
+					if (command.test(commande)) command.use();
 				}
 			}
 		} catch (IOException e) {
@@ -65,7 +66,7 @@ public class ClientThread implements Runnable {
 		this.op = op;
 	}
 
-	public PrintWriter getOut() {
-		return out;
+	public Sender getSender() {
+		return this.sender;
 	}
 }
