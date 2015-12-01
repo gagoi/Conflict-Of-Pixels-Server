@@ -39,6 +39,8 @@ public class ClientThread implements Runnable {
 		try {
 			String commande = "";
 			while ((commande = in.readLine()) != null) {
+				Server.serverGame.logger.logTxt("<INPUT>", commande);
+		
 				for (Command command : Command.commands) {
 					if (command.test(commande)) command.use();
 				}
