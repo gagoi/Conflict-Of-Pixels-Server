@@ -9,7 +9,6 @@ import java.net.UnknownHostException;
 import java.util.Vector;
 
 import fr.cop.common.Game;
-import fr.cop.common.commands.CommandsThread;
 
 public class Server {
 

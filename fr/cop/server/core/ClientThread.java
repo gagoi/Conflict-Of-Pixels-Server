@@ -7,8 +7,6 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 import fr.cop.common.Game;
-import fr.cop.common.commands.Command;
-import fr.cop.common.commands.Sender;
 
 public class ClientThread implements Runnable {
 	private Thread t;
