@@ -32,9 +32,10 @@ public class Command {
 		public void use() {
 			super.use();
 		};
-	}, new Command("client:request_connection", Param.PLAYER_UUID) {
+	}, new Command("client:request_connection", new Param[]{Param.PLAYER_UUID, Param.PLAYER_PW}) {
 		public void use() {
 			super.use();
+			
 		};
 	}
 

@@ -15,11 +15,12 @@ public class Server {
 	private ServerSocket serverSocket;
 	private int port = 163;
 	public static Game serverGame;
-
+	public static Server serverInstance;
 	private static Vector<ClientThread> clients = new Vector<ClientThread>();
 
 	public Server() {
 		printServInfo();
+		serverInstance =  this;
 		serverGame = new Game("C:\\Conflict Of Pixels_Server\\", Game.TYPE_SERVER);
 		try {
 			serverSocket = new ServerSocket(port);

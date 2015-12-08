@@ -17,7 +17,8 @@ public class ClientThread implements Runnable {
 	private String ip;
 	private boolean op = false;
 	private Sender sender;
-
+	private fr.cop.server.core.client_connection.ClientThread efe;
+	
 	public ClientThread(Socket s) {
 		this.s = s;
 		setIp(s.getInetAddress().getHostAddress());
