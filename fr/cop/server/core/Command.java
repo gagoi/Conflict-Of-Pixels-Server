@@ -76,8 +76,8 @@ public class Command {
 		return false;
 	}
 
-	public void use() {
-		Game.logger.logTxt(name, "Command used.");
+	public void use(ClientThread client) {
+		Game.logger.logTxt(name, "Command used by " + client.getIp());
 	}
 
 }

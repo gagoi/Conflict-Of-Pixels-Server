@@ -3,11 +3,14 @@ package fr.cop.server.core.client_connection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 import fr.cop.common.Game;
 import fr.cop.server.core.Command;
 import fr.cop.server.core.Server;
+import fr.cop.server.core.commands.CommandsList;
+import fr.cop.server.core.commands.MainCommand;
 
 /**
  * Un clientThread, est oomme son nom l'indique, un processus séparé du reste du serveur.
@@ -41,8 +44,8 @@ public class ClientThread implements Runnable {
 			while ((input = new BufferedReader(new InputStreamReader(socket.getInputStream())).readLine()) != null) {
 				Server.serverGame.logger.logTxt("<INPUT>", input);
 				
-				for (Command command : Command.commands) {
-					if (command.test(input)) command.use();
+				for (MainCommand command : CommandsList.commands) {
+					if (command.test(input)) command.use(this);
 				}
 			}
 		} catch (IOException e) {
@@ -55,6 +58,12 @@ public class ClientThread implements Runnable {
 	}
 
 	public void send(String command) {
-
+		try {
+			OutputStreamWriter out  = new OutputStreamWriter(socket.getOutputStream());
+			out.write(command);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

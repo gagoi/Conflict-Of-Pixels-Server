@@ -31,12 +31,27 @@ public class MainCommand {
 
 	}
 
-	public boolean verifyValidity() {
-		return false;
-
+	public boolean verifyValidity(String input) {
+		String[] splitedInput = input.split(" ");
+		try {
+			for (int i = 1; i < splitedInput.length; i++) {
+				if (!getParams()[i].test(splitedInput[i])) return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 
 	public String getTotalName() {
 		return null;
+	}
+
+	public String getType() {
+		return this.type;
+	}
+
+	public Param[] getParams() {
+		return params;
 	}
 }
