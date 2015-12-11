@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CommandsList {
 
 	private static MainCommand[] commands = new MainCommand[] {
-
+			new StopCommand()
 	};
 
 	public static MainCommand getCommandFromName(String name) {
@@ -23,6 +23,10 @@ public class CommandsList {
 		}
 		
 		return (MainCommand[]) typeCom.toArray();
+	}
+	
+	public static MainCommand[] getCommands(){
+		return commands;
 	}
 
 }
