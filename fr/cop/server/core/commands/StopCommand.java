@@ -5,7 +5,7 @@ import fr.cop.server.core.Server;
 public class StopCommand extends MainCommand{
 
 	public StopCommand() {
-		super("server", "stop");
+		super(MainCommand.TYPE_SERVER, "stop");
 	}
 	@Override
 	public void action() {

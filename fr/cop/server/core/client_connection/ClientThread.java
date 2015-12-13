@@ -1,10 +1,12 @@
 package fr.cop.server.core.client_connection;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.security.GeneralSecurityException;
 
 import fr.cop.common.Game;
 import fr.cop.server.core.Server;
@@ -39,12 +41,17 @@ public class ClientThread implements Runnable {
 	@Override
 	public void run() {
 		try {
+			BufferedReader bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String input = "";
-			while ((input = new BufferedReader(new InputStreamReader(socket.getInputStream())).readLine()) != null) {
+			while ((input = bf.readLine()) != null) {
 				Server.serverGame.logger.logTxt("<INPUT>", input);
 
+				System.out.println("false");
 				for (MainCommand command : CommandsList.getCommands()) {
-					if (command.verifyValidity(input)) command.action(this);
+					if (command.verifyValidity(input)) {
+						System.out.println("true");
+						command.action(this);
+					}
 				}
 			}
 		} catch (IOException e) {
@@ -57,10 +64,13 @@ public class ClientThread implements Runnable {
 	}
 
 	public void send(String command) {
+		System.out.println("Try Sending to " + id + " ; " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
 		try {
 			OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
-			out.write(command);
-			out.flush();
+			BufferedWriter bw = new BufferedWriter(out);
+			Server.serverInstance.serverGame.logger.logTxt("<SENDER>", command);
+			bw.write(command);
+			bw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

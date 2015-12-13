@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class CommandsList {
 
 	private static MainCommand[] commands = new MainCommand[] {
-			new StopCommand()
+			new StopCommand(),
+			new RequestConnection(),
 	};
 
 	public static MainCommand getCommandFromName(String name) {

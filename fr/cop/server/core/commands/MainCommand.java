@@ -20,12 +20,14 @@ public class MainCommand {
 	}
 
 	public MainCommand(String type, String name, MainParam param) {
-		new MainCommand(type, name);
+		this.type = type;
+		this.name = name;
 		this.params = new MainParam[] { param };
 	}
 
 	public MainCommand(String type, String name, MainParam... params) {
-		new MainCommand(type, name);
+		this.type = type;
+		this.name = name;
 		this.params = params;
 	}
 
@@ -41,9 +43,9 @@ public class MainCommand {
 		String[] splitedInput = input.split(" ");
 		try {
 			if (splitedInput[0].equals(getTotalName())) {
-				for (int i = 1; i < splitedInput.length; i++) {
-					if (!getParams()[i].test(splitedInput[i])) return false;
-				}
+//				for (int i = 1; i < splitedInput.length; i++) {
+//					if (!getParams()[i].test(splitedInput[i])) return false;
+//				}
 				return true;
 			}
 			return false;
@@ -53,7 +55,7 @@ public class MainCommand {
 	}
 
 	public String getTotalName() {
-		return type + ":" + name;
+		return this.type + this.name;
 	}
 
 	public String getType() {
