@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.security.GeneralSecurityException;
 
 import fr.cop.common.Game;
 import fr.cop.server.core.Server;
@@ -66,13 +65,12 @@ public class ClientThread implements Runnable {
 	public void send(String command) {
 		System.out.println("Try Sending to " + id + " ; " + socket.getInetAddress().getHostAddress() + ":" + socket.getPort());
 		try {
-			OutputStreamWriter out = new OutputStreamWriter(socket.getOutputStream());
-			BufferedWriter bw = new BufferedWriter(out);
-			Server.serverInstance.serverGame.logger.logTxt("<SENDER>", command);
-			bw.write(command);
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			bw.write(command + "\n");
 			bw.flush();
+			Game.logger.logTxt("<Sender:Send>", command);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Game.logger.logTxt("<Sender:Error>", "Client non connecté....");
 		}
 	}
 }
