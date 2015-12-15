@@ -11,6 +11,6 @@ public class RequestConnection extends MainCommand{
 
 	@Override
 	public void action(ClientThread ct) {
-		ct.send("client:connect TOTO");
+		ct.send("client:connect aaaabbbbaaaabbbb Gagoi");
 	}
 }
