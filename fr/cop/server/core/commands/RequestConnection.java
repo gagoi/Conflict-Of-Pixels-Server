@@ -1,8 +1,8 @@
 package fr.cop.server.core.commands;
 
+import fr.cop.common.network.params.MainParam;
+import fr.cop.common.network.params.MainParamList;
 import fr.cop.server.core.client_connection.ClientThread;
-import fr.cop.server.core.commands.params.MainParam;
-import fr.cop.server.core.commands.params.MainParamList;
 
 public class RequestConnection extends MainCommand{
 	public RequestConnection() {
