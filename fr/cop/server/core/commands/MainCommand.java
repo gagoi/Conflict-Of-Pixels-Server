@@ -102,6 +102,6 @@ public class MainCommand {
 	 * Fonction permettant d'afficher l'aide de cette commande.
 	 */
 	public void printHelp() {
-		System.out.println("  - Help not found. You should contact the developpers in order to request an update. (Command : " + getTotalName() + ").");
+		System.out.println("  - ["+ getTotalName()+ "] : Help not found. You should contact the developpers in order to request an update.");
 	}
 }

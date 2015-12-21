@@ -43,7 +43,7 @@ public class ClientThread implements Runnable {
 			BufferedReader bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String input = "";
 			while ((input = bf.readLine()) != null) {
-				Server.serverGame.logger.logTxt("<INPUT>", input);
+				Game.logger.logTxt("<INPUT>", input);
 
 				System.out.println("false");
 				for (MainCommand command : CommandsList.getCommands()) {
