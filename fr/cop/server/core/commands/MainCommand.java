@@ -97,4 +97,11 @@ public class MainCommand {
 	public MainParam[] getParams() {
 		return params;
 	}
+
+	/*
+	 * Fonction permettant d'afficher l'aide de cette commande.
+	 */
+	public void printHelp() {
+		System.out.println("  - Help not found. You should contact the developpers in order to request an update. (Command : " + getTotalName() + ").");
+	}
 }

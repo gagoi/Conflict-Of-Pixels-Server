@@ -13,4 +13,9 @@ public class RequestConnection extends MainCommand{
 	public void action(ClientThread ct) {
 		ct.send("client:connect aaaabbbbaaaabbbb Gagoi");
 	}
+	
+	@Override
+	public void printHelp() {
+		System.out.println("  - [" + getTotalName() + "] : This command send the UUID and the ID to the client which send the request.");
+	}
 }

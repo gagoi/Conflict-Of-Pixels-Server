@@ -12,4 +12,8 @@ public class StopCommand extends MainCommand{
 		Server.serverGame.logger.logTxt("<Server>", "Exit game, from command stop");
 		System.exit(0);
 	}
-}
+
+	@Override
+	public void printHelp() {
+		System.out.println("  - [" + getTotalName() + "] : This command stop the server without prevent anyone.");
+	}}
