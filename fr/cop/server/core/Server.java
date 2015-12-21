@@ -84,9 +84,14 @@ public class Server implements Runnable {
 				BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 				while ((input = bf.readLine()) != null) {
 					input = input.toLowerCase().replace(" ", "");
+					boolean isValid = false;
 					for (MainCommand command : CommandsList.getCommands()) {
-						if (command.verifyValidity(input)) command.action();
+						if (command.verifyValidity(input)) {
+							isValid = true;
+							command.action();
+						}
 					}
+					if (!isValid) System.out.println("Error, command doesn't exist, type \"server:help\" in order to have the list of the valid commands.");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
