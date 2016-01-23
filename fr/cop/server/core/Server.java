@@ -16,7 +16,7 @@ import fr.cop.server.core.commands.MainCommand;
 public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
-	private int port = 163;
+	private int port = 1630;
 	public static Game serverGame;
 	public static Server serverInstance;
 	private static Vector<ClientThread> clients = new Vector<ClientThread>();
