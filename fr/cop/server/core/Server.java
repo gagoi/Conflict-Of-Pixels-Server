@@ -1,6 +1,7 @@
 package fr.cop.server.core;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
@@ -17,8 +18,12 @@ public class Server implements Runnable {
 
 	private ServerSocket serverSocket;
 	private int port = 1630;
+	
 	public static Game serverGame;
 	public static Server serverInstance;
+	public static final File GAME_FOLDER = new File("C:\\Conflict Of Pixels_Server\\");
+	
+	
 	private static Vector<ClientThread> clients = new Vector<ClientThread>();
 	private Thread internalCommandThread;
 	private boolean isRunning;
