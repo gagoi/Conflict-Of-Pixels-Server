@@ -1,6 +1,7 @@
 package fr.cop.server.core.commands;
 
-import fr.cop.common.Game;
+import fr.cop.server.core.Game;
+import fr.cop.server.core.Server;
 
 public class StopCommand extends MainCommand{
 
@@ -9,7 +10,7 @@ public class StopCommand extends MainCommand{
 	}
 	@Override
 	public void action() {
-		Game.logger.logTxt("<Server>", "Exit game, from command stop");
+		Server.LOGGER.logTxt("<Server>", "Exit game, from command stop");
 		System.exit(0);
 	}
 

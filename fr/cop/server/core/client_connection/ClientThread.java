@@ -7,31 +7,31 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import fr.cop.common.Game;
+import fr.cop.server.core.Game;
 import fr.cop.server.core.Server;
 import fr.cop.server.core.commands.CommandsList;
 import fr.cop.server.core.commands.MainCommand;
 
 /**
- * Un clientThread, est oomme son nom l'indique, un processus séparé du reste du serveur.
- * Cela permet de l'exécuter en paralèlle à tout le reste (client et invité de commande).
+ * Un clientThread, est oomme son nom l'indique, un processus sï¿½parï¿½ du reste du serveur.
+ * Cela permet de l'exï¿½cuter en paralï¿½lle ï¿½ tout le reste (client et invitï¿½ de commande).
  * <p>
- * Il possède plusieurs attributs :
+ * Il possï¿½de plusieurs attributs :
  * <ul>
- * <li>@param socket Permet d'écouter et d'envoyer des informations depuis/vers la machine du client.</li>
- * <li>@param id Permet au serveur de savoir qui est qui dans la liste des clients connéctés. Ce nombre change à chauqe connexion/déconnexion/</li>
+ * <li>@param socket Permet d'ï¿½couter et d'envoyer des informations depuis/vers la machine du client.</li>
+ * <li>@param id Permet au serveur de savoir qui est qui dans la liste des clients connï¿½ctï¿½s. Ce nombre change ï¿½ chauqe connexion/dï¿½connexion/</li>
  * </ul>
  */
 public class ClientThread implements Runnable {
 
 	private int id; // Id du client non fixe, se refere a son placement dans la liste des clients.
-	private Thread t; // Thread dans lequel ce client sera traité.
+	private Thread t; // Thread dans lequel ce client sera traitï¿½.
 	private Socket socket; // Connection "materiel" avec le client.
 
 	public ClientThread(Socket clientSocket) {
 		this.socket = clientSocket;
 
-		Game.logger.logTxt("<ClientThread:INFO>", "Client : " + id + " is connected with ip : " + socket.getInetAddress().getHostAddress());
+		Server.LOGGER.logTxt("<ClientThread:INFO>", "Client : " + id + " is connected with ip : " + socket.getInetAddress().getHostAddress());
 
 		t = new Thread(this, "Client_Thread");
 		t.start();
@@ -43,7 +43,7 @@ public class ClientThread implements Runnable {
 			BufferedReader bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String input = "";
 			while ((input = bf.readLine()) != null) {
-				Game.logger.logTxt("<INPUT>", input);
+				Server.LOGGER.logTxt("<INPUT>", input);
 
 				System.out.println("false");
 				for (MainCommand command : CommandsList.getCommands()) {
@@ -54,9 +54,9 @@ public class ClientThread implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			Game.logger.logErr("<ClientThread:ERROR>", "Client : " + id + " -- ip : " + socket.getInetAddress().getHostAddress());
+			Server.LOGGER.logErr("<ClientThread:ERROR>", "Client : " + id + " -- ip : " + socket.getInetAddress().getHostAddress());
 		} finally {
-			Game.logger.logTxt("<SERVER>", "Client " + id + " is deconnected.");
+			Server.LOGGER.logTxt("<SERVER>", "Client " + id + " is deconnected.");
 			Server.delClient(id);
 		}
 
@@ -68,9 +68,9 @@ public class ClientThread implements Runnable {
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			bw.write(command + "\n");
 			bw.flush();
-			Game.logger.logTxt("<Sender:Send>", command);
+			Server.LOGGER.logTxt("<Sender:Send>", command);
 		} catch (IOException e) {
-			Game.logger.logTxt("<Sender:Error>", "Client non connecté....");
+			Server.LOGGER.logTxt("<Sender:Error>", "Client non connectï¿½....");
 		}
 	}
 }

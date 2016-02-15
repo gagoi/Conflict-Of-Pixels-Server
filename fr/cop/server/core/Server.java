@@ -9,7 +9,9 @@ import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.util.Vector;
 
-import fr.cop.common.Game;
+import javax.swing.text.SimpleAttributeSet;
+
+import fr.cop.common.logger.SimpleLog;
 import fr.cop.server.core.client_connection.ClientThread;
 import fr.cop.server.core.commands.CommandsList;
 import fr.cop.server.core.commands.MainCommand;
@@ -22,6 +24,7 @@ public class Server implements Runnable {
 	public static Game serverGame;
 	public static Server serverInstance;
 	public static final File GAME_FOLDER = new File("C:\\Conflict Of Pixels_Server\\");
+	public static final SimpleLog LOGGER = new SimpleLog("C:\\Conflict Of Pixels_Server\\");
 	
 	
 	private static Vector<ClientThread> clients = new Vector<ClientThread>();
@@ -31,7 +34,7 @@ public class Server implements Runnable {
 	public Server() {
 		printServInfo();
 		serverInstance = this;
-		serverGame = new Game("C:\\Conflict Of Pixels_Server\\", Game.TYPE_SERVER);
+		serverGame = new Game();
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e) {

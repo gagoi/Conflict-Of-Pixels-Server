@@ -1,6 +1,7 @@
 package fr.cop.server.core.commands;
 
-import fr.cop.common.Game;
+import fr.cop.server.core.Game;
+import fr.cop.server.core.Server;
 
 public class HelpCommand extends MainCommand{
 
@@ -10,7 +11,7 @@ public class HelpCommand extends MainCommand{
 	
 	@Override
 	public void action() {
-		Game.logger.logTxt("<SERVER>", "Help requested");
+		Server.LOGGER.logTxt("<SERVER>", "Help requested");
 		System.out.println("Command List : ");
 		for (MainCommand com : CommandsList.getCommandsInGoodOrganisation()) {
 			com.printHelp();
